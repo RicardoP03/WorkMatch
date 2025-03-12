@@ -9,7 +9,8 @@ plugins {
 group = 'ro.unibuc'
 version = '0.0.1-SNAPSHOT'
 java {
-	sourceCompatibility = JavaVersion.VERSION_21
+    sourceCompatibility = JavaVersion.VERSION_21
+    targetCompatibility = JavaVersion.VERSION_21
 }
 
 repositories {
@@ -54,6 +55,10 @@ dependencies {
 	testImplementation "io.cucumber:cucumber-java:$cucumberVersion"
 	testImplementation "io.cucumber:cucumber-junit:$cucumberVersion"
 	testImplementation "io.cucumber:cucumber-spring:$cucumberVersion"
+
+	compileOnly 'javax.servlet:javax.servlet-api:4.0.1'
+	compileOnly 'org.projectlombok:lombok:1.18.30' 
+    annotationProcessor 'org.projectlombok:lombok:1.18.30'
 }
 
 dependencyManagement {
