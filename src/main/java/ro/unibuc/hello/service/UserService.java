@@ -1,7 +1,7 @@
 package ro.unibuc.hello.service;
 
 import ro.unibuc.hello.service.UserService;
-import javax.servlet.*;
+import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import ro.unibuc.hello.data.UserEntity;
