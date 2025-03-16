@@ -50,4 +50,52 @@ Content-Type: application/json
 DELETE http://localhost:8080/greetings/{{deleteGreetingId}}
 
 
-# TODO add requests for your own endpoints!
+
+### Get all users
+GET http://localhost:8080/users
+
+### Get user by ID
+@userId = 67d7139fd390b106badfd9e3
+GET http://localhost:8080/users/{{userId}}
+
+### Create a new user
+POST http://localhost:8080/users
+Content-Type: application/json
+
+{
+    "name": "John Doe",
+    "role": "employer",
+    "password": "securepass"
+}
+
+### Update an existing user
+@updateUserId = 67d7139fd390b106badfd9e3
+PUT http://localhost:8080/users/{{updateUserId}}
+Content-Type: application/json
+
+{
+    "id": "67d7139fd390b106badfd9e3",
+    "name": "John Updated",
+    "role": "employer",
+    "password": "newpassword"
+}
+
+### Delete a user
+@deleteUserId = 67d71070fc00c903eca33a75
+DELETE http://localhost:8080/users/{{deleteUserId}}
+
+### Login user
+POST http://localhost:8080/login
+Content-Type: application/json
+
+{
+  "name": "John Updated",
+  "password": "newpassword"
+}
+
+### Logout user
+POST http://localhost:8080/logout
+
+### Get logged-in user
+GET http://localhost:8080/loggedUser
+

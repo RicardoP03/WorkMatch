@@ -48,12 +48,17 @@ public class UserController {
 
     @PostMapping("/login")
     public String login(@RequestBody User user, HttpSession session) {
-        User existingUser = userService.getUserById(user.getId());
-        if (existingUser != null && existingUser.getPassword().equals(user.getPassword())) {
-            session.setAttribute("loggedUser", existingUser);
-            return "Login successful";
-        } else {
-            return "Invalid credentials";
+        try {
+            User existingUser = userService.getUserByName(user.getName());
+            
+            if (existingUser.getPassword().equals(user.getPassword())) {
+                session.setAttribute("loggedUser", existingUser);
+                return "Login successful";
+            } else {
+                return "Invalid credentials"; 
+            }
+        } catch (EntityNotFoundException e) {
+            return "User not found"; 
         }
     }
 

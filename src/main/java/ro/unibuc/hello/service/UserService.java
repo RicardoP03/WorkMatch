@@ -20,7 +20,7 @@ public class UserService {
 
     public List<User> getAllUsers() {
         return userRepository.findAll().stream()
-                .map(userEntity -> new User(userEntity.getId(), userEntity.getName(), userEntity.getRole(), userEntity.getPassword()))
+                .map(userEntity -> new User(userEntity.getId(),userEntity.getName(), userEntity.getRole(), userEntity.getPassword()))
                 .collect(Collectors.toList());
     }
     
@@ -29,27 +29,36 @@ public class UserService {
         UserEntity user = userRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException(id));
         return new User(user.getId(), user.getName(), user.getRole(), user.getPassword());
-
     }
 
-    public User saveUser(User User) {
-        UserEntity user = new UserEntity(User.getId(), User.getName(), User.getRole());
-        userRepository.save(user);
-        return new User(user.getId(), user.getName(), user.getRole(), user.getPassword());
+    public User saveUser(User user) {
+        UserEntity userEntity = new UserEntity( user.getName(), user.getRole(), user.getPassword());
+        userEntity = userRepository.save(userEntity);
+        return new User(userEntity.getId(), userEntity.getName(), userEntity.getRole(), userEntity.getPassword());
     }
-
-    public User updateUser(String id, User User) throws EntityNotFoundException {
-        UserEntity user = userRepository.findById(id)
+    
+    
+    public User updateUser(String id, User user) throws EntityNotFoundException {
+        UserEntity userEntity = userRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException(id));
-        user.setName(User.getName());
-        user.setRole(User.getRole());
-        userRepository.save(user);
-        return new User(user.getId(), user.getName(), user.getRole(), user.getPassword());
+        userEntity.setName(user.getName());
+        userEntity.setRole(user.getRole());
+        userEntity.setPassword(user.getPassword());
+        userRepository.save(userEntity);
+        return new User(userEntity.getId(), userEntity.getName(), userEntity.getRole(), userEntity.getPassword());
     }
 
     public void deleteUser(String id) throws EntityNotFoundException {
         UserEntity user = userRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException(id));
         userRepository.delete(user);
+    }
+
+    public User getUserByName(String name) throws EntityNotFoundException {
+        UserEntity user = userRepository.findByName(name);
+        if (user == null) {
+            throw new EntityNotFoundException("User not found with name: " + name);
+        }
+        return new User(user.getId(), user.getName(), user.getRole(), user.getPassword());
     }
 }
