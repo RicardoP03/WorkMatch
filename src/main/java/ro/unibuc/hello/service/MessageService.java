@@ -22,8 +22,18 @@ public class MessageService {
     @Autowired
     private UserRepository userRepository;
 
-    public List<Message> findMessagesBetweenUsersById(String id1, String id2) {
+    public List<Message> findMessagesBetweenUsers(String id1, String id2) {
         return messageRepository.findMessagesBetweenUsers(id1, id2).stream()
+                .map(message -> new Message(message.getId(), 
+                                            message.getContent(), 
+                                            message.getSenderId(), 
+                                            message.getReceiverId(),
+                                            message.getSentDate()))
+                .collect(Collectors.toList());
+    }
+
+    public List<Message> findMessagesBetweenUsersWithSubstring(String id1, String id2, String substring) {
+        return messageRepository.findMessagesBetweenUsersWithSubstring(id1, id2, substring).stream()
                 .map(message -> new Message(message.getId(), 
                                             message.getContent(), 
                                             message.getSenderId(), 

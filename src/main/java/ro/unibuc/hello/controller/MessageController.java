@@ -17,19 +17,22 @@ public class MessageController {
     @Autowired
     private MessageService messageService;
 
-    @GetMapping("/between/{id1}")
-    @ResponseBody
-    public String get(@PathVariable String id1) {
-        return "Mapping works";
-    }
-
     @GetMapping("/between/{id1}/{id2}")
     @ResponseBody
     public List<Message> getMessagesBetweenUsers(
         @PathVariable String id1,
         @PathVariable String id2) {
         
-        return messageService.findMessagesBetweenUsersById(id1, id2);
+        return messageService.findMessagesBetweenUsers(id1, id2);
+    }
+
+    @GetMapping("/between/{id1}/{id2}/{searchedString}")
+    @ResponseBody
+    public List<Message>getMessagesBetweenUsersWithSubstring(
+        @PathVariable String id1,
+        @PathVariable String id2,
+        @PathVariable String searchedString) {
+        return messageService.findMessagesBetweenUsersWithSubstring(id1, id2, searchedString);
     }
 
     @PostMapping("/message")
