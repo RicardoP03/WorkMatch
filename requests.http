@@ -127,3 +127,29 @@ GET http://localhost:8080/between/{{userId1}}/{{userId2}}
 ###get messages between users that contain an substrig
 GET http://localhost:8080/between/{{userId1}}/{{userId2}}/{{searchedString}}
 
+@appId = "";
+@jobId = "";
+@seekerId = "";
+
+###get an application by its id
+GET http://localhost:8080/application/{{appId}}
+
+
+### Get the list of applications of an job seeker
+GET http://localhost:8080/applicationsBySeekerId/{{seekerId}}
+
+### Get the list of applications to an job
+GET http://localhost:8080/applicationsByJobId/{{jobId}}
+
+### Create an application
+POST http://localhost:8080/application
+Content-Type: application/json
+
+{
+    "jobId": {{jobId}},
+    "seekerId: {{seekerId}}
+}
+
+### delete an application
+DELETE http://localhost:8080/application/{{appId}}
+

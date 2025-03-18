@@ -61,7 +61,7 @@ public class MessageService {
         );
     }
 
-    public Message saveMessage(Message message) {
+    public Message saveMessage(Message message) throws EntityNotFoundException {
         userRepository.findById(message.getSenderId())
             .orElseThrow(() -> new EntityNotFoundException("Sender with ID " + message.getSenderId() + " not found"));
 
@@ -91,6 +91,5 @@ public class MessageService {
                 .orElseThrow(() -> new EntityNotFoundException(id));
         messageRepository.delete(messageEntity);
     }
-     
-    
+       
 }

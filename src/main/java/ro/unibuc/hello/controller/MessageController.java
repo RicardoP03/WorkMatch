@@ -4,10 +4,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import ro.unibuc.hello.dto.Message;
-import ro.unibuc.hello.dto.User;
 import ro.unibuc.hello.exception.EntityNotFoundException;
 import ro.unibuc.hello.service.MessageService;
-import ro.unibuc.hello.service.UserService;
 import jakarta.servlet.http.HttpSession;
 import java.util.List;
 
@@ -50,8 +48,13 @@ public class MessageController {
 
     @DeleteMapping("/message/{id}")
     @ResponseBody
-    public void deleteMessage(@PathVariable String id) throws EntityNotFoundException {
-        messageService.deleteMessage(id);
+    public void deleteMessage(@PathVariable String id) {
+        try {
+            messageService.deleteMessage(id);
+        }
+        catch (Exception e) {
+            System.err.println("Error deleting message: " + e.getMessage());
+        }
     }
 
 }
