@@ -6,7 +6,6 @@ import org.springframework.stereotype.Component;
 import ro.unibuc.hello.data.ApplicationEntity;
 import ro.unibuc.hello.data.ApplicationRepository;
 import ro.unibuc.hello.dto.Application;
-import ro.unibuc.hello.dto.Message;
 import ro.unibuc.hello.data.UserRepository;
 import ro.unibuc.hello.data.JobRepository;
 import ro.unibuc.hello.exception.EntityNotFoundException;
@@ -14,6 +13,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+@Component
 public class ApplicationService {
     @Autowired
     private ApplicationRepository applicationRepository;
