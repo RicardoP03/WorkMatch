@@ -20,6 +20,10 @@ public class HelloApplication {
 		SpringApplication.run(HelloApplication.class, args);
 	}
 
+
+	//aici se pune info pt test
+	//sau folosesti mongo admin ui
+	//foloseste requests.http dupa ce pornesti aplicatia
 	@PostConstruct
 	public void runAfterObjectCreated() {
 		informationRepository.deleteAll();

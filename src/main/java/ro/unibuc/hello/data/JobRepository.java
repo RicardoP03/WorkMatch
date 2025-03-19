@@ -2,11 +2,11 @@ package ro.unibuc.hello.data;
 
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.stereotype.Repository;
-import ro.unibuc.hello.data.JobEntity;
+import java.util.List;
 
 @Repository
-public interface JobRepository extends MongoRepository<JobEntity,String>{
-    JobEntity findById(int id);
+public interface JobRepository extends MongoRepository<JobEntity, String> {
     
-    JobEntity findByPositionName(String positionName);
+    List<JobEntity> findByPositionName(String positionName); 
+    
 }
