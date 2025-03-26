@@ -53,6 +53,16 @@ class JobControllerTest {
                .andExpect(status().isOk())
                .andExpect(content().string(testJob.toString()));
     }
+    @Test
+    void test_findByPositionName() throws Exception{
+        List<Job> jobs = Arrays.asList(testJob);
+        when(jobService.findByPositionName("Software Engineer")).thenReturn(jobs);
+
+        mockMvc.perform(get("/job/search?positionName=Software Engineer"))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$[0].id").value("1"))
+                .andExpect(jsonPath("$[0].positionName").value("Software Engineer"));
+    }
 
     @Test
     void test_getJob_cascadesException() {
@@ -128,4 +138,6 @@ class JobControllerTest {
     
         verify(jobService, times(1)).deleteJob(id);
     }
+
+
 }
