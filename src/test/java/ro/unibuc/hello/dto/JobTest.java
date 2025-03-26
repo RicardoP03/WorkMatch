@@ -33,4 +33,24 @@ class JobTest {
     void test_postDate() {
         Assertions.assertEquals(testDate, myJob.getPostDate());
     }
+
+    @Test
+    void testUserSetters() {        
+        Job testJob = new Job("1", "Software Engineer", "Develops software", 3, new Date());
+
+        
+        testDate = new Date();
+
+        testJob.setId("2");
+        testJob.setPoisitonName("TEST");
+        testJob.setExperience(5);
+        testJob.setDescription("TEST DESC");
+        testJob.setPostDate(testDate);
+
+        Assertions.assertEquals("2", testJob.getId());
+        Assertions.assertEquals("TEST", testJob.getPoisitonName());
+        Assertions.assertEquals(5, testJob.getExperince());
+        Assertions.assertEquals("TEST DESC", testJob.getDescription());
+        Assertions.assertEquals(testDate, testJob.getPostDate());
+    }
 }

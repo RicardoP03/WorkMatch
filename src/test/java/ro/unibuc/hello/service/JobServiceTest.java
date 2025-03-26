@@ -57,6 +57,7 @@ class JobServiceTest {
         assertEquals(testDate, createdJob.getPostDate());
     }
 
+
     @Test
     void testGetJob_ExistingEntity() throws EntityNotFoundException {
         // Arrange
