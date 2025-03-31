@@ -4,10 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import ro.unibuc.hello.dto.Application;
-import ro.unibuc.hello.dto.Message;
-import ro.unibuc.hello.exception.EntityNotFoundException;
 import ro.unibuc.hello.service.ApplicationService;
-import jakarta.servlet.http.HttpSession;
 import java.util.List;
 
 @Controller
@@ -45,7 +42,7 @@ public class ApplicationController {
     public Application createApplication(@RequestBody Application app) {
         try {
             Application savedApp = applicationService.saveAplication(app);
-            return app;
+            return savedApp;
         } 
         catch (Exception e) {
             System.err.println("Error saving application: " + e.getMessage());

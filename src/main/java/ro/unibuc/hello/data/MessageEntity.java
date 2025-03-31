@@ -15,11 +15,19 @@ public class MessageEntity {
 
     public MessageEntity() {}
 
+    public MessageEntity(String id, String content, String senderId, String receiverId, Date sentDate) {
+        this.id = id;
+        this.content = content;
+        this.senderId = senderId;
+        this.receiverId = receiverId;
+        this.sentDate =  sentDate;
+    }
+
     public MessageEntity(String content, String senderId, String receiverId, Date sentDate) {
         this.content = content;
         this.senderId = senderId;
         this.receiverId = receiverId;
-        this.sentDate = sentDate;
+        this.sentDate =  sentDate;
     }
 
     public String getId() { return id; }

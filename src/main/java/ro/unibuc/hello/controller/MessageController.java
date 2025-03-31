@@ -6,7 +6,6 @@ import org.springframework.web.bind.annotation.*;
 import ro.unibuc.hello.dto.Message;
 import ro.unibuc.hello.exception.EntityNotFoundException;
 import ro.unibuc.hello.service.MessageService;
-import jakarta.servlet.http.HttpSession;
 import java.util.List;
 
 
@@ -34,26 +33,20 @@ public class MessageController {
     }
 
     @PostMapping("/message")
-    @ResponseBody
-    public Message createMessage(@RequestBody Message message) {
-        try {
-            Message savedMessage = messageService.saveMessage(message);
-            return savedMessage;
-        } 
-        catch (Exception e) {
-            System.err.println("Error saving message: " + e.getMessage());
-            return null;
-        }
+    public Message createMessage(@RequestBody Message message) throws EntityNotFoundException {
+        Message savedMessage = messageService.saveMessage(message);
+        return savedMessage;
     }
 
     @DeleteMapping("/message/{id}")
     @ResponseBody
-    public void deleteMessage(@PathVariable String id) {
+    public String deleteMessage(@PathVariable String id) throws EntityNotFoundException {
         try {
             messageService.deleteMessage(id);
+            return "The message has been deleted\n";
         }
         catch (Exception e) {
-            System.err.println("Error deleting message: " + e.getMessage());
+            return "Error deleting message: " + e.getMessage();
         }
     }
 

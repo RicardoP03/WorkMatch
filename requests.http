@@ -111,7 +111,6 @@ Content-Type: application/json
     "content": "Hello, how are you?",
     "senderId": {{userId1}},
     "receiverId": {{userId2}},
-    "sentDate": "2025-03-18T12:30:00Z"
 }
 
 @messageId = "";
