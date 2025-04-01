@@ -5,9 +5,11 @@ import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import ro.unibuc.hello.dto.Application;
+import ro.unibuc.hello.dto.Greeting;
 import ro.unibuc.hello.service.ApplicationService;
 
 import java.util.Arrays;
@@ -88,6 +90,21 @@ class ApplicationControllerTest {
                     .andExpect(jsonPath("$.jobId").value("10"))
                     .andExpect(jsonPath("$.seekerId").value("20"))
                     .andExpect(jsonPath("$.date").value(sentDate));
+    }
+
+    @Test
+    void test_createApplication() throws Exception {
+        Date sentDate = new Date();
+        Application ap = new Application("1", "10", "20", sentDate);
+        when(applicationService.saveAplication(any(Application.class))).thenReturn(ap);
+    
+        mockMvc.perform(post("/application")
+               .content("{\"id\":\"1\", \"jobId\":\"10\", \"seekerId\":\"20\"}")
+               .contentType(MediaType.APPLICATION_JSON))
+               .andExpect(status().isOk())
+               .andExpect(jsonPath("$.id").value("1"))
+               .andExpect(jsonPath("$.jobId").value("10"))
+               .andExpect(jsonPath("$.seekerId").value("20"));
     }
 
 
