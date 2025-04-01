@@ -85,15 +85,14 @@ class MessageControllerTest {
 
         when(messageService.saveMessage(any(Message.class))).thenReturn(msg);
 
-        //Need to fix dont't know why is not working, it works when doing it manually
-        // mockMvc.perform(post("/message")
-        //     .content("{\"id\":\"1\",\"content\":\"Hello!\",\"senderId\":\"10\",\"receiverId\":\"11\"}")
-        //     .contentType(MediaType.APPLICATION_JSON))
-        //     .andExpect(status().isOk());
-            // .andExpect(jsonPath("$.id").value("1"))
-            // .andExpect(jsonPath("$.content").value("Hello!"))
-            // .andExpect(jsonPath("$.senderId").value("10"))
-            // .andExpect(jsonPath("$.receiverId").value("11"));
+        mockMvc.perform(post("/message")
+                .content("{\"id\":\"1\",\"content\":\"Hello!\",\"senderId\":\"10\",\"receiverId\":\"11\"}")
+                .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.id").value("1"))
+                .andExpect(jsonPath("$.content").value("Hello!"))
+                .andExpect(jsonPath("$.senderId").value("10"))
+                .andExpect(jsonPath("$.receiverId").value("11"));
     }
 
     @Test

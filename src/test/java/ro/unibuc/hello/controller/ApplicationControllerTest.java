@@ -9,7 +9,6 @@ import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import ro.unibuc.hello.dto.Application;
-import ro.unibuc.hello.dto.Greeting;
 import ro.unibuc.hello.service.ApplicationService;
 
 import java.util.Arrays;

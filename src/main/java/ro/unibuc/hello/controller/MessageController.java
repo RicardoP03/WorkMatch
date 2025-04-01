@@ -9,7 +9,7 @@ import ro.unibuc.hello.service.MessageService;
 import java.util.List;
 
 
-@Controller
+@RestController
 public class MessageController {
     @Autowired
     private MessageService messageService;

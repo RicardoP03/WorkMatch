@@ -116,8 +116,6 @@ public class MessageControllerIntegrationTest {
         .andExpect(jsonPath("$[0].receiverId").value(us2.getId()));
     }
 
-    // I really don't know why it dosen't work is beyond me when I call it manually it works, and the service works 
-    // properly I just can't find why it dosen't
     @Test
     public void test_saveMesage() throws Exception {
         Date sentDate = new Date();
@@ -134,9 +132,9 @@ public class MessageControllerIntegrationTest {
 
         String path = "/between/" + us1.getId() + "/" + us2.getId();
         mockMvc.perform(get(path))
-        .andExpect(status().isOk())
-        .andExpect(content().contentType(MediaType.APPLICATION_JSON))
-        .andExpect(jsonPath("$.length()").value(3));
+            .andExpect(status().isOk())
+            .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+            .andExpect(jsonPath("$.length()").value(3));
     }
 
     @Test
