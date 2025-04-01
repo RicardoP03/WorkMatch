@@ -14,6 +14,7 @@ import ro.unibuc.hello.exception.EntityNotFoundException;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
+
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
@@ -33,17 +34,14 @@ class UserServiceTest {
 
     @Test
     void testGetAllUsers() {
-        // Arrange
         List<UserEntity> entities = Arrays.asList(
                 new UserEntity("Alice", "employer", "pass123"),
                 new UserEntity("Bob", "applicant", "pass456")
         );
         when(userRepository.findAll()).thenReturn(entities);
 
-        // Act
         List<User> users = userService.getAllUsers();
 
-        // Assert
         assertEquals(2, users.size());
         assertEquals("Alice", users.get(0).getName());
         assertEquals("Bob", users.get(1).getName());
@@ -51,76 +49,80 @@ class UserServiceTest {
 
     @Test
     void testGetUserById_NonExistingUser() {
-        // Arrange
         String id = "99";
         when(userRepository.findById(id)).thenReturn(Optional.empty());
 
-        // Act & Assert
         assertThrows(EntityNotFoundException.class, () -> userService.getUserById(id));
     }
 
     @Test
     void testSaveUser() {
-        // Arrange
-        User user = new User(null, "Alice", "Admin", "pass123"); 
+        User user = new User(null, "Alice", "Admin", "pass123");
         UserEntity entity = new UserEntity("Alice", "Admin", "pass123");
         when(userRepository.save(any(UserEntity.class))).thenReturn(entity);
 
-        // Act
         User savedUser = userService.saveUser(user);
 
-        // Assert
         assertNotNull(savedUser);
         assertEquals("Alice", savedUser.getName());
         assertEquals("Admin", savedUser.getRole());
     }
 
     @Test
+    void testUpdateUser_ExistingUser() throws EntityNotFoundException {
+        String id = "1";
+        UserEntity existingUser = new UserEntity("OldName", "OldRole", "oldpass");
+        User userToUpdate = new User(id, "NewName", "NewRole", "newpass");
+
+        when(userRepository.findById(id)).thenReturn(Optional.of(existingUser));
+        when(userRepository.save(any(UserEntity.class))).thenReturn(existingUser);
+
+        User updatedUser = userService.updateUser(id, userToUpdate);
+
+        assertNotNull(updatedUser);
+        assertEquals("NewName", updatedUser.getName());
+        assertEquals("NewRole", updatedUser.getRole());
+        assertEquals("newpass", updatedUser.getPassword());
+
+        verify(userRepository, times(1)).save(existingUser);
+    }
+
+    @Test
     void testUpdateUser_NonExistingUser() {
-        // Arrange
         String id = "99";
         User user = new User(id, "NonExistent", "User", "pass999");
         when(userRepository.findById(id)).thenReturn(Optional.empty());
 
-        // Act & Assert
         assertThrows(EntityNotFoundException.class, () -> userService.updateUser(id, user));
     }
 
     @Test
     void testDeleteUser_ExistingUser() throws EntityNotFoundException {
-        // Arrange
         String id = "1";
         UserEntity entity = new UserEntity("Alice", "Admin", "pass123");
         when(userRepository.findById(id)).thenReturn(Optional.of(entity));
 
-        // Act
         userService.deleteUser(id);
 
-        // Assert
         verify(userRepository, times(1)).delete(entity);
     }
 
     @Test
     void testDeleteUser_NonExistingUser() {
-        // Arrange
         String id = "99";
         when(userRepository.findById(id)).thenReturn(Optional.empty());
 
-        // Act & Assert
         assertThrows(EntityNotFoundException.class, () -> userService.deleteUser(id));
     }
 
     @Test
     void testGetUserByName_ExistingUser() throws EntityNotFoundException {
-        // Arrange
         String name = "Alice";
         UserEntity entity = new UserEntity(name, "employer", "pass123");
         when(userRepository.findByName(name)).thenReturn(entity);
 
-        // Act
         User user = userService.getUserByName(name);
 
-        // Assert
         assertNotNull(user);
         assertEquals(name, user.getName());
         assertEquals("employer", user.getRole());
@@ -128,11 +130,9 @@ class UserServiceTest {
 
     @Test
     void testGetUserByName_NonExistingUser() {
-        // Arrange
         String name = "Unknown";
         when(userRepository.findByName(name)).thenReturn(null);
 
-        // Act & Assert
         assertThrows(EntityNotFoundException.class, () -> userService.getUserByName(name));
     }
 }
