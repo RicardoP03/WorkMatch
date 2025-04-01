@@ -19,6 +19,8 @@ import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
+import org.springframework.http.MediaType;
+
 class MessageControllerTest {
     @Mock
     private MessageService messageService;
@@ -83,14 +85,15 @@ class MessageControllerTest {
 
         when(messageService.saveMessage(any(Message.class))).thenReturn(msg);
 
+        //Need to fix dont't know why is not working, it works when doing it manually
         // mockMvc.perform(post("/message")
-        //     .contentType(MediaType.APPLICATION_JSON)
-        //     .content("{ \"content\":\"Hello!\",\"senderId\":\"10\",\"receiverId\":\"11\"}"))
+        //     .content("{\"id\":\"1\",\"content\":\"Hello!\",\"senderId\":\"10\",\"receiverId\":\"11\"}")
+        //     .contentType(MediaType.APPLICATION_JSON))
         //     .andExpect(status().isOk());
-        //     .andExpect(jsonPath("$.id").value("1"))
-        //     .andExpect(jsonPath("$.content").value("Hello!"))
-        //     .andExpect(jsonPath("$.senderId").value("10"))
-        //     .andExpect(jsonPath("$.receiverId").value("11"))
+            // .andExpect(jsonPath("$.id").value("1"))
+            // .andExpect(jsonPath("$.content").value("Hello!"))
+            // .andExpect(jsonPath("$.senderId").value("10"))
+            // .andExpect(jsonPath("$.receiverId").value("11"));
     }
 
     @Test

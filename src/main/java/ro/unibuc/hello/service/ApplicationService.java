@@ -10,6 +10,7 @@ import ro.unibuc.hello.data.JobRepository;
 import ro.unibuc.hello.exception.EntityNotFoundException;
 import java.util.List;
 import java.util.Optional;
+import java.util.Date;
 import java.util.stream.Collectors;
 
 @Component
@@ -42,14 +43,11 @@ public class ApplicationService {
                 .collect(Collectors.toList());
     }
 
-    public Application findApplicationById(String id) {
+    public Application findApplicationById(String id) throws EntityNotFoundException {
         Optional<ApplicationEntity> apEnt = applicationRepository.findById(id);
 
-        ApplicationEntity applicationEntity = apEnt.orElse(null);
-
-        if(applicationEntity == null) {
-            return null;
-        }
+        ApplicationEntity applicationEntity = apEnt.orElseThrow(() -> 
+        new EntityNotFoundException("Application with ID " + id + " not found"));
 
         return new Application (
             applicationEntity.getId(),
@@ -70,10 +68,14 @@ public class ApplicationService {
             throw new RuntimeException("Application already exists for this job and seeker.");
         }
 
+        Date sentDate = new Date();
         ApplicationEntity apEnt = new ApplicationEntity(
             ap.getJobId(),
-            ap.getSeekerId()
+            ap.getSeekerId(),
+            sentDate
         );
+
+        apEnt = applicationRepository.save(apEnt);
 
         return new Application (
             apEnt.getId(),

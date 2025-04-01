@@ -14,10 +14,17 @@ public class ApplicationEntity {
 
     public ApplicationEntity() {}
 
-    public ApplicationEntity(String jobId, String seekerId) {
+    public ApplicationEntity(String id, String jobId, String seekerId, Date date) {
+        this.id = id;
         this.jobId = jobId;
         this.seekerId = seekerId;
-        this.date = new Date();
+        this.date = date;
+    }
+
+    public ApplicationEntity(String jobId, String seekerId, Date date) {
+        this.jobId = jobId;
+        this.seekerId = seekerId;
+        this.date = date;
     }
 
     public String getId() { return id; }

@@ -40,6 +40,7 @@ public class MessageServiceTest {
         MockitoAnnotations.openMocks(this);
     }
 
+    @Test
     void test_findMessagesBetweenUsers() {
         Date sentDate = new Date();
         List<MessageEntity> messages = Arrays.asList(
@@ -64,6 +65,7 @@ public class MessageServiceTest {
         assertEquals(sentDate, msgs.get(1).getSentDate());
     }
 
+    @Test
     void test_findMessagesBetweenUsersWithSubstring() {
         Date sentDate = new Date();
         List<MessageEntity> messages = Arrays.asList(
@@ -82,6 +84,7 @@ public class MessageServiceTest {
         assertEquals(sentDate, msgs.get(0).getSentDate());
     }
 
+    @Test
     void test_saveMessage_NoError() {
         Date sentDate = new Date();
         Message msg = new Message("1", "Hello!", "10", "11", sentDate);
@@ -100,6 +103,7 @@ public class MessageServiceTest {
         assertEquals(sentDate, savedMessage.getSentDate());
     }
 
+    @Test
     void test_saveMessageSender_NotFound() {
         Date sentDate = new Date();
         Message msg = new Message("1", "Hello!", "10", "11", sentDate);

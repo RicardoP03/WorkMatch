@@ -8,6 +8,8 @@ public class Message {
     private String receiverId;  
     private Date sentDate; 
 
+    public Message() {}
+
     public Message(String id, String content, String senderId, String receiverId, Date sentDate) {
         this.id = id;
         this.content = content;

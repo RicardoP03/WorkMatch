@@ -40,7 +40,7 @@ public class MessageController {
 
     @DeleteMapping("/message/{id}")
     @ResponseBody
-    public String deleteMessage(@PathVariable String id) throws EntityNotFoundException {
+    public String deleteMessage(@PathVariable String id) {
         try {
             messageService.deleteMessage(id);
             return "The message has been deleted\n";
