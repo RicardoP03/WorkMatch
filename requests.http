@@ -51,3 +51,15 @@ DELETE http://localhost:8080/greetings/{{deleteGreetingId}}
 
 
 # TODO add requests for your own endpoints!
+
+
+### Get all greetings
+POST http://localhost:8080/job/create
+Content-Type: application/json
+
+{
+  "positionName": "Software Developer",
+  "jobDescription": "Responsible for developing software solutions.",
+  "experienceInYears": 3,
+  "postDate": "2025-04-08T12:00:00Z"
+}
