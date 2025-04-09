@@ -45,7 +45,8 @@ public class MessageControllerIntegrationTest {
         mongoDBContainer.start();
     }
 
-    @AfterAll static void tearDown() {
+    @AfterAll 
+    static void tearDown() {
         mongoDBContainer.stop();
     }
 
@@ -84,6 +85,11 @@ public class MessageControllerIntegrationTest {
 
         msg1 = messageService.saveMessage(msg1);
         msg2 = messageService.saveMessage(msg2);
+
+        messageService.deleteMessage(msg1.getId());
+        messageService.deleteMessage(msg2.getId());
+        userService.deleteUser(us1.getId());
+        userService.deleteUser(us2.getId());
     }
 
     @Test

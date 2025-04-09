@@ -8,6 +8,8 @@ import ro.unibuc.hello.exception.EntityNotFoundException;
 import ro.unibuc.hello.service.MessageService;
 import java.util.List;
 
+import javax.management.RuntimeErrorException;
+
 
 @RestController
 public class MessageController {
@@ -33,7 +35,7 @@ public class MessageController {
     }
 
     @PostMapping("/message")
-    public Message createMessage(@RequestBody Message message) throws EntityNotFoundException {
+    public Message createMessage(@RequestBody Message message) throws EntityNotFoundException,  RuntimeException {
         Message savedMessage = messageService.saveMessage(message);
         return savedMessage;
     }

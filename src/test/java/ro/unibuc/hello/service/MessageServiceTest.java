@@ -19,6 +19,9 @@ import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
+
+import javax.management.RuntimeErrorException;
+
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyString;
@@ -101,6 +104,14 @@ public class MessageServiceTest {
         assertEquals("10", savedMessage.getSenderId());
         assertEquals("11", savedMessage.getReceiverId());
         assertEquals(sentDate, savedMessage.getSentDate());
+    }
+
+    @Test
+    void test_saveMesage_invalidMessage() {
+        Date sentDate = new Date();
+        Message msg = new Message("1", "", "10", "11", sentDate);
+        
+        assertThrows( RuntimeException.class, () -> messageService.saveMessage(msg));
     }
 
     @Test
