@@ -29,7 +29,7 @@ pipeline {
                 sh "docker build -t ricardo03/hello-img:${env.IMAGE_TAG} ."
 
                 sh "git tag ${env.IMAGE_TAG}"
-                sh "git push https://${GITHUB_TOKEN}@github.com/${DOCKER_PASSWORD_USR}/WorkMatch.git ${env.IMAGE_TAG}"
+                sh "git push https://${GITHUB_TOKEN}@github.com/RicardoP03/WorkMatch.git ${env.IMAGE_TAG}"
             }
         }
 
