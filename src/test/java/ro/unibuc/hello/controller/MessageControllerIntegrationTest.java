@@ -4,7 +4,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import ro.unibuc.hello.dto.Message;
 import ro.unibuc.hello.dto.User;
-import ro.unibuc.hello.exception.EntityNotFoundException;
 
 import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -52,7 +51,7 @@ public class MessageControllerIntegrationTest {
 
     @DynamicPropertySource
     static void setProperties(DynamicPropertyRegistry registry) {
-        final String MONGO_URL = "mongodb://localhost:";
+        final String MONGO_URL = "mongodb://host.docker.internal:";
         final String PORT = String.valueOf(mongoDBContainer.getMappedPort(27018));
 
         registry.add("mongodb.connection.url", () -> MONGO_URL + PORT);
