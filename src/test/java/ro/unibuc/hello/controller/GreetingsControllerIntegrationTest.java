@@ -35,7 +35,7 @@ public class GreetingsControllerIntegrationTest {
 
     @Container
     public static MongoDBContainer mongoDBContainer = new MongoDBContainer("mongo:6.0.20")
-            .withExposedPorts(27019)
+            .withExposedPorts(27017)
             .withSharding();
 
     @BeforeAll
@@ -51,7 +51,7 @@ public class GreetingsControllerIntegrationTest {
     @DynamicPropertySource
     static void setProperties(DynamicPropertyRegistry registry) {
         final String MONGO_URL = "mongodb://host.docker.internal:";
-        final String PORT = String.valueOf(mongoDBContainer.getMappedPort(27019));
+        final String PORT = String.valueOf(mongoDBContainer.getMappedPort(27017));
 
         registry.add("mongodb.connection.url", () -> MONGO_URL + PORT);
     }

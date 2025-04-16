@@ -37,7 +37,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 public class MessageControllerIntegrationTest {
     @Container
     public static MongoDBContainer mongoDBContainer = new MongoDBContainer("mongo:6.0.20").
-                                                      withExposedPorts(27018).withSharding();
+                                                      withExposedPorts(27017).withSharding();
 
     @BeforeAll
     public static void setUp() {
@@ -52,7 +52,7 @@ public class MessageControllerIntegrationTest {
     @DynamicPropertySource
     static void setProperties(DynamicPropertyRegistry registry) {
         final String MONGO_URL = "mongodb://host.docker.internal:";
-        final String PORT = String.valueOf(mongoDBContainer.getMappedPort(27018));
+        final String PORT = String.valueOf(mongoDBContainer.getMappedPort(27017));
 
         registry.add("mongodb.connection.url", () -> MONGO_URL + PORT);
     }
