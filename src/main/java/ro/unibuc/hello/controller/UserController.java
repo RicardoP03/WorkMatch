@@ -7,7 +7,6 @@ import ro.unibuc.hello.dto.User;
 import ro.unibuc.hello.exception.EntityNotFoundException;
 import ro.unibuc.hello.service.UserService;
 
-import jakarta.servlet.http.HttpSession;
 import java.util.List;
 
 @Controller
@@ -46,26 +45,9 @@ public class UserController {
         userService.deleteUser(id);
     }
 
-    @PostMapping("/login")
-    public String login(@RequestBody User user, HttpSession session) {
-        User existingUser = userService.getUserById(user.getId());
-        if (existingUser != null && existingUser.getPassword().equals(user.getPassword())) {
-            session.setAttribute("loggedUser", existingUser);
-            return "Login successful";
-        } else {
-            return "Invalid credentials";
-        }
-    }
-
-    @PostMapping("/logout")
-    public String logout(HttpSession session) {
-        session.invalidate();
-        return "Logout successful";
-    }
-
-    @GetMapping("/loggedUser")
+    @GetMapping("/users/name/{name}")
     @ResponseBody
-    public User getLoggedUser(HttpSession session) {
-        return (User) session.getAttribute("loggedUser");
+    public User getUserByName(@PathVariable String name) throws EntityNotFoundException {
+        return userService.getUserByName(name);
     }
 }

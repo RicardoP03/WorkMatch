@@ -4,7 +4,7 @@ public class User {
     private String id;
     private String name;
     private String role;
-    private String password;  
+    private String password;
 
     public User(String id, String name, String role, String password) {
         this.id = id;

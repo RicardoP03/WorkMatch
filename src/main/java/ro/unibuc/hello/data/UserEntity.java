@@ -7,10 +7,10 @@ import org.springframework.data.mongodb.core.mapping.Document;
 public class UserEntity {
 
     @Id
-    private String id;
+    private String id; 
     private String name;
     private String role;
-    private String password; 
+    private String password;
 
     public UserEntity() {}
 
@@ -20,27 +20,18 @@ public class UserEntity {
         this.password = password;
     }
 
-    public UserEntity(String id, String name, String role, String password) { 
-        this.id = id;
-        this.name = name;
-        this.role = role;
-        this.password = password;
-    }
-
-    public String getId() { return id; }
-    public void setId(String id) { this.id = id; }
-
+    public String getId() { return id; } 
     public String getName() { return name; }
     public void setName(String name) { this.name = name; }
 
     public String getRole() { return role; }
     public void setRole(String role) { this.role = role; }
 
-    public String getPassword() { return password; } 
+    public String getPassword() { return password; }
     public void setPassword(String password) { this.password = password; }
 
     @Override
     public String toString() {
-        return String.format("User[id='%s', name='%s', role='%s']", id, name, role);
+        return String.format("User[name='%s', role='%s']", name, role);
     }
 }

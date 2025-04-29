@@ -63,3 +63,106 @@ Content-Type: application/json
   "experienceInYears": 3,
   "postDate": "2025-04-08T12:00:00Z"
 }
+
+### Get all users
+GET http://localhost:8080/users
+
+### Get user by ID
+@userId = 67d7139fd390b106badfd9e3
+GET http://localhost:8080/users/{{userId}}
+
+### Create a new user
+POST http://localhost:8080/users
+Content-Type: application/json
+
+{
+    "name": "John Doe",
+    "role": "employer",
+    "password": "securepass"
+}
+
+### Update an existing user
+@updateUserId = 67d7139fd390b106badfd9e3
+PUT http://localhost:8080/users/{{updateUserId}}
+Content-Type: application/json
+
+{
+    "id": "67d7139fd390b106badfd9e3",
+    "name": "John Updated",
+    "role": "employer",
+    "password": "newpassword"
+}
+
+### Delete a user
+@deleteUserId = 67d71070fc00c903eca33a75
+DELETE http://localhost:8080/users/{{deleteUserId}}
+
+### Login user
+POST http://localhost:8080/login
+Content-Type: application/json
+
+{
+  "name": "John Updated",
+  "password": "newpassword"
+}
+
+### Logout user
+POST http://localhost:8080/logout
+
+### Get logged-in user
+GET http://localhost:8080/loggedUser
+
+
+
+@userId1 = ""
+@userId2 = ""
+### Create an message
+POST http://localhost:8080/message
+Content-Type: application/json
+
+{
+    "content": "Hello, how are you?",
+    "senderId": {{userId1}},
+    "receiverId": {{userId2}},
+    "sentDate": "2025-03-18T12:30:00Z"
+}
+
+@messageId = "";
+### delete an message
+DELETE http://localhost:8080/message/{{messageId}}
+
+
+###get messages between users
+GET http://localhost:8080/between/{{userId1}}/{{userId2}}
+
+
+@searchedString = "";
+###get messages between users that contain an substrig
+GET http://localhost:8080/between/{{userId1}}/{{userId2}}/{{searchedString}}
+
+@appId = "";
+@jobId = "";
+@seekerId = "";
+
+###get an application by its id
+GET http://localhost:8080/application/{{appId}}
+
+
+### Get the list of applications of an job seeker
+GET http://localhost:8080/applicationsBySeekerId/{{seekerId}}
+
+### Get the list of applications to an job
+GET http://localhost:8080/applicationsByJobId/{{jobId}}
+
+### Create an application
+POST http://localhost:8080/application
+Content-Type: application/json
+
+{
+    "jobId": {{jobId}},
+    "seekerId: {{seekerId}}
+}
+
+### delete an application
+DELETE http://localhost:8080/application/{{appId}}
+
