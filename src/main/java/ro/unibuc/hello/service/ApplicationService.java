@@ -1,6 +1,5 @@
 package ro.unibuc.hello.service;
 
-import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import ro.unibuc.hello.data.ApplicationEntity;
@@ -11,6 +10,7 @@ import ro.unibuc.hello.data.JobRepository;
 import ro.unibuc.hello.exception.EntityNotFoundException;
 import java.util.List;
 import java.util.Optional;
+import java.util.Date;
 import java.util.stream.Collectors;
 
 @Component
@@ -43,14 +43,11 @@ public class ApplicationService {
                 .collect(Collectors.toList());
     }
 
-    public Application findApplicationById(String id) {
+    public Application findApplicationById(String id) throws EntityNotFoundException {
         Optional<ApplicationEntity> apEnt = applicationRepository.findById(id);
 
-        ApplicationEntity applicationEntity = apEnt.orElse(null);
-
-        if(applicationEntity == null) {
-            return null;
-        }
+        ApplicationEntity applicationEntity = apEnt.orElseThrow(() -> 
+        new EntityNotFoundException("Application with ID " + id + " not found"));
 
         return new Application (
             applicationEntity.getId(),
@@ -65,21 +62,26 @@ public class ApplicationService {
             .orElseThrow(() -> new EntityNotFoundException("Seeker with ID " + ap.getSeekerId() + " not found"));
         jobRepository.findById(ap.getJobId())
             .orElseThrow(() -> new EntityNotFoundException("Job with ID " + ap.getJobId() + " not found"));
+            
         List<ApplicationEntity> listOfApplciations = applicationRepository.findByJobIdAndSeekerId(ap.getJobId(), ap.getSeekerId());
         if(listOfApplciations.size() != 0) {
             throw new RuntimeException("Application already exists for this job and seeker.");
         }
 
+        Date sentDate = new Date();
         ApplicationEntity apEnt = new ApplicationEntity(
             ap.getJobId(),
-            ap.getSeekerId()
+            ap.getSeekerId(),
+            sentDate
         );
 
+        apEnt = applicationRepository.save(apEnt);
+
         return new Application (
-            ap.getId(),
-            ap.getJobId(),
-            ap.getSeekerId(),
-            ap.getDate()
+            apEnt.getId(),
+            apEnt.getJobId(),
+            apEnt.getSeekerId(),
+            apEnt.getDate()
         );
     }
 
