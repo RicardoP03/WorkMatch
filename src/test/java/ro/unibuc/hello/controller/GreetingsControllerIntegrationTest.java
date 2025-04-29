@@ -53,6 +53,7 @@ public class GreetingsControllerIntegrationTest {
         final String MONGO_URL = "mongodb://host.docker.internal:";
         final String PORT = "27017";
 
+
         registry.add("mongodb.connection.url", () -> MONGO_URL + PORT);
         System.out.println(MONGO_URL + PORT);
     }

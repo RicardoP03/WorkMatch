@@ -26,9 +26,43 @@ public class JobController {
         return jobService.getJob(id);
     }
 
-    @PostMapping
+    @PostMapping("/create")
     @ResponseBody
     public JobEntity create(@RequestBody JobEntity newJob){
         return jobService.create(newJob);
+    }
+
+    @GetMapping("/jobs")
+    @ResponseBody
+    public List<Job> getAllJobs() {
+        return jobService.getAllJobs();
+    }
+
+    @PutMapping("update/{id}")
+    @ResponseBody
+    public String updateJob(@PathVariable String id, @RequestBody JobEntity newJobData) {
+        try {
+            String updatedJob = jobService.updateJob(id, newJobData);
+            return updatedJob;
+        } catch (EntityNotFoundException e) {
+            return "fail";
+        }
+    }
+
+    @DeleteMapping("/delete/{id}")
+    @ResponseBody
+    public String deleteJob(@PathVariable String id) {
+        try {
+            jobService.deleteJob(id);
+            return "succes";
+        } catch (EntityNotFoundException e) {
+            return "failed";
+        }
+    }
+
+    @GetMapping("/search")
+    @ResponseBody
+    public List<Job> findByPositionName(@RequestParam String positionName) {
+        return jobService.findByPositionName(positionName);
     }
 }
