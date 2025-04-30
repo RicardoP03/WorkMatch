@@ -28,6 +28,7 @@ dependencies {
 	def testcontainersVersion = "1.20.4"
 
 	implementation 'org.springframework.boot:spring-boot-starter-actuator'
+	implementation 'org.aspectj:aspectjtools:1.9.20'
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 	implementation 'org.springframework.session:spring-session-core'
 	implementation 'org.springframework.boot:spring-boot-starter-data-mongodb'
@@ -63,6 +64,9 @@ dependencies {
 	testImplementation 'io.cucumber:cucumber-java:6.8.0'
 	testImplementation 'io.cucumber:cucumber-junit:6.8.0'
 	testImplementation 'io.cucumber:cucumber-spring:6.8.0'
+
+
+
 }
 
 dependencyManagement {
