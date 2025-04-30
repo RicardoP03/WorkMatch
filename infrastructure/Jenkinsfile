@@ -5,7 +5,7 @@ pipeline {
     }
 
     environment {
-        DOCKER_PASSWORD = credentials("docker_password")
+        DOCKER_CRED = credentials("docker_password") 
         GITHUB_TOKEN = credentials("github_token")
     }
 
@@ -30,6 +30,13 @@ pipeline {
 
                 sh "git tag ${env.IMAGE_TAG}"
                 sh "git push https://${GITHUB_TOKEN}@github.com/RicardoP03/WorkMatch.git ${env.IMAGE_TAG}"
+            }
+        }
+
+        stage('Push to Docker Hub') {
+            steps {
+                sh "echo ${DOCKER_CRED_PSW} | docker login -u ${DOCKER_CRED_USR} --password-stdin"
+                sh "docker push ricardo03/hello-img:${env.IMAGE_TAG}"
             }
         }
 
