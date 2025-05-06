@@ -27,6 +27,7 @@ rule_files:
   - app-alerts.yml
   - canary-alerts.yml
   - container-alerts.yml
+  - job-alerts.yml
 
 alerting:
   alertmanagers:

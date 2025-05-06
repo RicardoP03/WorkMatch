@@ -11,9 +11,9 @@ route:
 receivers:
 - name: 'email'
   email_configs:
-  - to: 'EMAIL@gmail.com'
-    from: 'EMAIL@gmail.com'
-    smarthost: smtp.gmail.com:587
-    auth_username: 'EMAIL@gmail.com'
-    auth_identity: 'EMAIL@gmail.com'
-    auth_password: 'GENERATE ONE FROM https://security.google.com/settings/security/apppasswords'
+  - to: 'denis.denis67889@gmail.com'
+    from: 'test.test@gmail.com'
+    smarthost: app.debugmail.io:25 
+    auth_username: 'dc3360ba-3356-4de5-9bbb-ef82f59d488e'
+    auth_identity: 'dc3360ba-3356-4de5-9bbb-ef82f59d488e'
+    auth_password: '446b4fe3-b10a-4ae3-a640-9e4559951978'

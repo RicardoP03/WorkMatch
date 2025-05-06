@@ -1,0 +1,29 @@
+groups:
+  - name: application_alerts
+    rules:
+      - alert: ApplicationDown
+        expr: up == 0
+        for: 30s
+        labels:
+          severity: critical
+        annotations:
+          summary: "Aplicatia este down"
+          description: "Jobul {{ $labels.job }} nu raspunde."
+
+      - alert: HighLatency
+        expr: job_get_seconds_max > 1.5
+        for: 1m
+        labels:
+          severity: warning
+        annotations:
+          summary: "Timp de raspuns mare"
+          description: "job_get_seconds_max a depasit 1.5s"
+
+      - alert: HighErrorRate
+        expr: increase(http_server_requests_seconds_count{status="500"}[1m]) > 5
+        for: 30s
+        labels:
+          severity: warning
+        annotations:
+          summary: "Rata mare de erori 500"
+          description: "S-au inregistrat mai mult de 5 raspunsuri 500 in ultimul minut"
